@@ -151,10 +151,10 @@ export default {
       })
     },
     makeGeoJSONFillVectorLayer: function (url, minResolution, maxResolution, strokeColor, width, fillColor) {
-      return new VectorLayer({
+      let vectorLayer = new VectorLayer({
         source: new VectorSource({
-          format: new GeoJSON(),
-          url: url
+          format: new GeoJSON()
+          // features: (new GeoJSON()).readFeatures(response.body)
         }),
         minResolution: minResolution,
         maxResolution: maxResolution,
@@ -170,6 +170,14 @@ export default {
         fill: fillColor,
         fillColor: fillColor
       })
+      this.$http.get(url).then( (response) => {
+        console.log('!!! makeGeoJSONFillVectorLayer !!! url:', url, 'response:', response)
+        if (response && response.body) {
+          vectorLayer.getSource().addFeatures((new GeoJSON()).readFeatures(response.body))
+        }
+      })
+      
+      return vectorLayer
     },
     makeGeoJSONLineVectorLayer: function (url, minResolution, maxResolution, strokeColor, width) {
       return new VectorLayer({

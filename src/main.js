@@ -5,11 +5,14 @@ import './assets/styles.css'
 
 import Vue from 'vue'
 import VueLazyLoad from 'vue-lazyload'
+import VueResource from 'vue-resource'
+
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
 Vue.use(VueLazyLoad)
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
