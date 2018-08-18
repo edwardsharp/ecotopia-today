@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["5e0b"],{"5e0b":function(e,n,t){"use strict";t.r(n);var r=function(){var e=this,n=e.$createElement;e._self._c;return e._m(0)},a=[function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",{staticClass:"aside-content"},[t("h1",[e._v("Megaregion Introduction")])])}],c={name:"MegaregionIntroduction"},i=c,o=t("2877"),s=Object(o["a"])(i,r,a,!1,null,null,null);n["default"]=s.exports}}]);
-//# sourceMappingURL=5e0b.70cdfbec.js.map
