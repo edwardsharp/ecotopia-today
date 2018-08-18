@@ -31,7 +31,8 @@ export default {
   name: 'Map',
   data: function () {
     return {
-      olmap: undefined
+      olmap: undefined,
+      basinGeoJsonFeatures: undefined
     }
   },
   computed: {
@@ -151,11 +152,16 @@ export default {
       })
     },
     makeGeoJSONFillVectorLayer: function (url, minResolution, maxResolution, strokeColor, width, fillColor) {
-      let vectorLayer = new VectorLayer({
-        source: new VectorSource({
-          format: new GeoJSON()
-          // features: (new GeoJSON()).readFeatures(response.body)
-        }),
+      const vectorSource = {
+        format: new GeoJSON()
+      }
+      if (url === 'geojson/CBP-Crops.geojson' && this.basinGeoJsonFeatures) {
+        vectorSource.features = this.basinGeoJsonFeatures
+      } else {
+        vectorSource.url = url
+      }
+      return new VectorLayer({
+        source: new VectorSource(vectorSource),
         minResolution: minResolution,
         maxResolution: maxResolution,
         style: new Style({
@@ -170,14 +176,6 @@ export default {
         fill: fillColor,
         fillColor: fillColor
       })
-      this.$http.get(url).then( (response) => {
-        console.log('!!! makeGeoJSONFillVectorLayer !!! url:', url, 'response:', response)
-        if (response && response.body) {
-          vectorLayer.getSource().addFeatures((new GeoJSON()).readFeatures(response.body))
-        }
-      })
-      
-      return vectorLayer
     },
     makeGeoJSONLineVectorLayer: function (url, minResolution, maxResolution, strokeColor, width) {
       return new VectorLayer({

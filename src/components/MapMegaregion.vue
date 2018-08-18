@@ -296,6 +296,13 @@ export default {
 
   },
   mounted: function () {
+    this.$http.get('geojson/CBP-Crops.geojson').then( (response) => {
+      console.log('!!! makeGeoJSONFillVectorLayer !!! response:', response)
+      if (response && response.body) {
+        // vectorLayer.getSource().addFeatures((new GeoJSON()).readFeatures(response.body))
+        this.basinGeoJsonFeatures = (new GeoJSON()).readFeatures(response.body)
+      }
+    })
     this.initMap()
     window.addEventListener('keydown', (e) => {
       if (e.keyCode === 38) { // up arrow key
